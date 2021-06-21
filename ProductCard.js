@@ -1,13 +1,15 @@
 const style = /*html*/`
 <style>
 * {
-  font-family: -apple-system, BlinkMacSystemFont;
+  font-family: -apple-system-rounded, BlinkMacSystemFont;
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
   text-align: center;
+  padding: 15px;
+  border-radius: 15px;
 }
 
 .price {
@@ -24,13 +26,14 @@ const style = /*html*/`
 .card button {
   border: none;
   outline: 0;
-  padding: 12px;
+  padding: 15px;
   color: white;
   background-color: #1d1d1f;
   text-align: center;
   cursor: pointer;
   width: 100%;
   font-size: 18px;
+  border-radius: 15px;
 }
 
 .card button:hover {
@@ -40,7 +43,6 @@ const style = /*html*/`
 .card .inner-slot {
   padding-bottom: 15px;
   text-align: left;
-  padding-left: 15px;
   color: grey;
 }
 
@@ -69,15 +71,18 @@ class ProductCardComponent extends HTMLElement {
       this.shadow = this.attachShadow({ mode: 'open' });
       this.locale = 'es-CL'
       this.currency = 'USD'
+      this.currencySymbol = '$'
       this.opts = {minimumFractionDigits: 2}
       this.priceParser = (price) => {
-        return `${this.currency} $${price.toLocaleString(this.locale, this.opts)}`
+        return `${this.currency} ${this.currencySymbol}${price.toLocaleString(this.locale, this.opts)}`
       }
   }
 
   render(){
     if(this.getAttribute('currency'))
       this.currency = this.getAttribute('currency')
+    if(this.getAttribute('currency-symbol'))
+      this.currencySymbol = this.getAttribute('currency-symbol')
     if(this.getAttribute('product-name'))
       this.shadow.querySelector('h1').innerHTML = this.getAttribute('product-name')
     if(this.getAttribute('price')){
