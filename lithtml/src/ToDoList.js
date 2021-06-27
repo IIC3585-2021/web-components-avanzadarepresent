@@ -4,24 +4,6 @@ import './ToDoElement.js';
 
 
 export class ToDoListComponent extends LitElement { 
-  static get properties() { 
-    return {
-    titulo: { type: String, reflect: true },
-    promt: { type: String, reflect: true },
-    items: { type: Array, reflect: true },
-  };}
-
-  constructor() {
-    super();
-    this.titulo = 'Avanzada Represents Todo';
-    this.promt = 'Inserta nuevo quehacer aqui';
-    this.items = [];
-  }
-
-  attributeChangedCallback(name, oldVal, newVal) {
-    super.attributeChangedCallback(name, oldVal, newVal);
-  }
-
   render() {
     return html`
     <div class="general">
@@ -42,19 +24,6 @@ export class ToDoListComponent extends LitElement {
       </div>
     </div>
     `
-  }
-
-  addElement() {
-    let input = this.shadowRoot.querySelector(".new-todo");
-    this.items.push(input.value)
-    this.setAttribute('items', JSON.stringify(this.items))
-    input.value = ''
-  }
-
-  deleteElement(e) {
-    const elementIndex = e.detail.id;
-    this.items.splice(elementIndex, 1);
-    this.setAttribute('items', JSON.stringify(this.items))
   }
 
   static get styles() {
@@ -86,6 +55,36 @@ export class ToDoListComponent extends LitElement {
     `;
   }
 
+  static get properties() { 
+    return {
+    titulo: { type: String, reflect: true },
+    promt: { type: String, reflect: true },
+    items: { type: Array, reflect: true },
+  };}
+
+  constructor() {
+    super();
+    this.titulo = 'Avanzada Represents Todo';
+    this.promt = 'Inserta nuevo quehacer aqui';
+    this.items = [];
+  }
+
+  attributeChangedCallback(name, oldVal, newVal) {
+    super.attributeChangedCallback(name, oldVal, newVal);
+  }
+
+  addElement() {
+    let input = this.shadowRoot.querySelector(".new-todo");
+    this.items.push(input.value)
+    this.setAttribute('items', JSON.stringify(this.items))
+    input.value = ''
+  }
+
+  deleteElement(e) {
+    const elementIndex = e.detail.id;
+    this.items.splice(elementIndex, 1);
+    this.setAttribute('items', JSON.stringify(this.items))
+  }
 }
 
 // Register the element with the browser
