@@ -15,6 +15,7 @@
     } 
     WebComponents.waitFor(async () => { 
       import('./src/ToDoList.js');
+      import('./src/ProductCard.js');
     });
   </script>
   
@@ -31,4 +32,57 @@
   
   <todo-list items='["primera","segunda","tercera"]' promt="Add new list item" titulo="Todo">
   </todo-list>
+
+  <product-card
+    productName="MacBook Air"
+    price="999"
+    currency="LB"
+    currencySymbol="£"
+    img="https://res-4.cloudinary.com/grover/image/upload/e_trim/c_limit,f_auto,fl_png8.lossy,h_1280,q_auto,w_1280/v1564671762/d4thxnjpg61ag3llogsg.png"
+    >
+      13.3-inch Retina display
+      <br />Apple M1 chip <br />Up to 16GB memory <br />Up to 2TB storage15
+      <br />Up to 18 hours battery life19 <br />Touch ID
+  </product-card>
+  <product-card
+    img="https://www.notebookcheck.org/fileadmin/Notebooks/Apple/MacBook_Pro_13_2020_2GHz_i5_10th-Gen/Bildschirmfoto_2020_05_22_um_12.01.27.png"
+    productName="MacBook Pro 13”"
+    price="1399.99"
+    discountedPrice="1299.99"
+    buttonText="Look at reviews"
+    buttonLink="//www.techradar.com/reviews/iphone-8-review"
+  >
+      3.3-inch Retina display
+      <br />Apple M1 chip <br />Also available with Intel Core i5 or i7
+      processor <br />Up to 16GB memory20 <br />Up to 2TB storage20 <br />Up to
+      20 hours battery life21 <br />Touch Bar and Touch ID
+  </product-card>
+
+  <product-card
+    img="data:image/jpeg;base64,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"
+    productName="MacBook Pro 16”"
+    price="2399"
+    buttonText="This is very expensive and you should watch the review"
+    buttonLink="//www.techradar.com/reviews/macbook-pro-16-inch-2019-review"
+  >
+  </product-card>
+
+  <product-card
+    img="https://www.apple.com/v/imac-24/b/images/overview/routers/trade_in__brjsvgardkgi_large.jpg"
+    productName="iMac 24”"
+    currency="EU"
+    currencySymbol="€"
+    price="1399"
+    discountedPrice="1299.99"
+    buttonText="This product replaces the old iMac"
+  >
+      Below is the included AR:
+      <br />
+      <img
+        src="https://www.apple.com/v/imac-24/b/images/overview/ar_router__cdp4z6dpcrhy_large.jpg"
+        width="100%"
+        alt=""
+      />
+      Get up to $1110 toward your new iMac.
+  </product-card>
 </body>
