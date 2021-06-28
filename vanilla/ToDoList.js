@@ -2,30 +2,54 @@ const template = document.createElement('template');
 
 template.innerHTML = `
   <style>
-    .general {
-      width: 100%;
-    }
-    .container {
-      width: 50%;
-      margin: auto;
-      font-family: -apple-system-rounded, BlinkMacSystemFont
-    }
-    ul {
-      list-style-type: none;
-    }
-    .input-group {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .new-todo {
-      width: 65%;
-    }
-    button.circular {
-      border-radius: 100%;
+  .general {
+    width: 100%;
+    
+  }
+  .container {
+    width: 50%;
+    margin: auto;
+    font-family: -apple-system-rounded, BlinkMacSystemFont, "Courier New";
+  }
+  ul {
+    list-style-type: none;
+  }
+  .input-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em;
+  }
+  .new-todo {
+    width: 65%;
+  }
+  button.circular {
+      height: 30px;
+      line-height: 30px;  
+      width: 30px;  
+      font-size: 1em;
       font-weight: bold;
-      background-color: white;
-    }
+      border-radius: 50%;
+      background-color: #1d1d1f;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+  }
+  button.circular:hover{
+    opacity:0.7;
+  }
+  .prompt {
+    border: none;
+    outline: 0;
+    padding: 15px;
+    color: white;
+    background-color: #1d1d1f;
+    text-align: center;
+    cursor: pointer;
+    width: 20%;
+    font-size: 15px;
+    border-radius: 15px;
+  }
 
   </style>
   <div class="general">
@@ -52,7 +76,7 @@ class ToDoListComponent extends HTMLElement {
     this.$title = this.shadow.querySelector('h2');
     this.$listWrapper = this.shadow.querySelector('ul');
     this.$addButton = this.shadow.querySelector('.circular');
-    this.$addButton.addEventListener('click',() => this.addElement());
+    this.$addButton.addEventListener('click', () => this.addElement());
     this.itemList = [];
     this.counter = 1;
 
@@ -67,7 +91,7 @@ class ToDoListComponent extends HTMLElement {
   get itemsProps() {
     const items = [];
     while (this.getAttribute(`item${this.counter}`) && this.getAttribute(`item${this.counter}`) !== '') {
-      let value = {id: this.counter, value: this.getAttribute(`item${this.counter}`)}
+      let value = { id: this.counter, value: this.getAttribute(`item${this.counter}`) }
       items.push(value);
       this.counter++;
     }
@@ -79,7 +103,7 @@ class ToDoListComponent extends HTMLElement {
   set itemsProps(values) {
     for (let index = 0; index < values.length; index++) {
       const element = values[index];
-      this.setAttribute(`item${index+1}`, element.value);
+      this.setAttribute(`item${index + 1}`, element.value);
     }
   }
 
@@ -92,7 +116,7 @@ class ToDoListComponent extends HTMLElement {
   }
 
   render() {
-    this.$promt.innerHTML = this.promt; 
+    this.$promt.innerHTML = this.promt;
     this.$title.innerHTML = this.titulo;
     this.$listWrapper.innerHTML = '';
     this.itemsProps.forEach(element => {

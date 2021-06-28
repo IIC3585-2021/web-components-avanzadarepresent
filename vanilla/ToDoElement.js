@@ -2,17 +2,28 @@ const elementTemplate = document.createElement('template');
 
 elementTemplate.innerHTML = `
   <style>
-    li.todo-list-element {
-      display: flex;
-      align-items: center;
-      padding: 0.5em;
-      justify-content: space-between
-    }
-    button.circular {
-      border-radius: 100%;
-      font-weight: bold;
-      background-color: white;
-    }
+  li.todo-list-element {
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    justify-content: space-between;
+    font-family: -apple-system-rounded, BlinkMacSystemFont, "Courier New";
+  }
+  button.circular {
+    height: 30px;
+    line-height: 30px;  
+    width: 30px;  
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 50%;
+    background-color: #1d1d1f;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+button.circular:hover{
+  opacity:0.7;
+}
   </style>
 
   <li class="todo-list-element">
@@ -33,7 +44,7 @@ class ToDoElementComponent extends HTMLElement {
     this.$deleteButton = this.shadow.querySelector('button');
 
     this.$deleteButton.addEventListener('click', () => {
-      var event = new CustomEvent("deletePressed", {detail: this.id});
+      var event = new CustomEvent("deletePressed", { detail: this.id });
       this.dispatchEvent(event);
     });
   }
