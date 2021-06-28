@@ -1,6 +1,6 @@
-const template = document.createElement('template');
+const template = document.createElement("template");
 
-template.innerHTML = `
+template.innerHTML = /*html*/ `
   <style>
   .general {
     width: 100%;
@@ -64,40 +64,44 @@ template.innerHTML = `
       </div>
     </div>
   </div>
-`
+`;
 
 class ToDoListComponent extends HTMLElement {
   constructor() {
-    super()
-    this.shadow = this.attachShadow({ mode: 'open' });
+    super();
+    this.shadow = this.attachShadow({ mode: "open" });
     this.shadow.appendChild(template.content.cloneNode(true));
-
-    this.$promt = this.shadow.querySelector('p');
-    this.$title = this.shadow.querySelector('h2');
-    this.$listWrapper = this.shadow.querySelector('ul');
-    this.$addButton = this.shadow.querySelector('.circular');
-    this.$addButton.addEventListener('click', () => this.addElement());
+    this.$promt = this.shadow.querySelector("p");
+    this.$title = this.shadow.querySelector("h2");
+    this.$listWrapper = this.shadow.querySelector("ul");
+    this.$addButton = this.shadow.querySelector(".circular");
+    this.$addButton.addEventListener("click", () => this.addElement());
     this.itemList = [];
     this.counter = 1;
-
   }
 
   get titulo() {
-    return this.getAttribute('titulo');
+    return this.getAttribute("titulo");
   }
   get promt() {
-    return this.getAttribute('promt');
+    return this.getAttribute("promt");
   }
   get itemsProps() {
     const items = [];
-    while (this.getAttribute(`item${this.counter}`) && this.getAttribute(`item${this.counter}`) !== '') {
-      let value = { id: this.counter, value: this.getAttribute(`item${this.counter}`) }
+    while (
+      this.getAttribute(`item${this.counter}`) &&
+      this.getAttribute(`item${this.counter}`) !== ""
+    ) {
+      let value = {
+        id: this.counter,
+        value: this.getAttribute(`item${this.counter}`),
+      };
       items.push(value);
       this.counter++;
     }
     this.counter = 1;
     this.itemList = items;
-    return items
+    return items;
   }
 
   set itemsProps(values) {
@@ -108,7 +112,7 @@ class ToDoListComponent extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['titulo', 'promt'];
+    return ["titulo", "promt"];
   }
 
   attributeChangedCallback(name, oldVal, newVal) {
@@ -118,39 +122,40 @@ class ToDoListComponent extends HTMLElement {
   render() {
     this.$promt.innerHTML = this.promt;
     this.$title.innerHTML = this.titulo;
-    this.$listWrapper.innerHTML = '';
-    this.itemsProps.forEach(element => {
+    this.$listWrapper.innerHTML = "";
+    this.itemsProps.forEach((element) => {
       const newItem = document.createElement("todo-element");
       newItem.setAttribute("content", element.value);
       newItem.setAttribute("id", element.id);
-      newItem.addEventListener("deletePressed", (e) => { this.deleteItem(e.detail) });
+      newItem.addEventListener("deletePressed", (e) => {
+        this.deleteItem(e.detail);
+      });
       this.$listWrapper.appendChild(newItem);
     });
   }
 
   deleteItem(itemID) {
-    let otro = this.itemList.filter(item => item.id != itemID)
+    let otro = this.itemList.filter((item) => item.id != itemID);
     this.resetItemAttrs();
     this.itemsProps = otro;
     this.render();
   }
 
   resetItemAttrs() {
-    let count = 1
+    let count = 1;
     while (this.getAttribute(`item${count}`)) {
-      this.setAttribute(`item${count}`, '');
+      this.setAttribute(`item${count}`, "");
       count++;
     }
   }
 
   addElement() {
-    let input = this.shadow.querySelector('.new-todo');
+    let input = this.shadow.querySelector(".new-todo");
     const itemIndex = this.itemList.length + 1;
     this.setAttribute(`item${itemIndex}`, input.value);
-    input.value = ''
+    input.value = "";
     this.render();
   }
-
 }
 
-window.customElements.define('todo-list', ToDoListComponent);
+window.customElements.define("todo-list", ToDoListComponent);
